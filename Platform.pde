@@ -1,7 +1,7 @@
 class Platform extends GO
 {
   float speed;
-  int w = 150;
+  int w = 160;
   int h = 20;
   
   void update()

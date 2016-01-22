@@ -107,7 +107,7 @@ void mousePressed()
     }
     
     //play botton
-    if(mouseX>width-100 && mouseX<width-(50))
+    if(mouseX>width-110 && mouseX<width-(40))
     {
       if(mouseY>height-100 && mouseY<height-(100-20))
       {
@@ -163,11 +163,28 @@ void mainMenu()
     text("Press spacebar to jump", width/2, height/2 - 20);
     text("Don't fall!", width/2, height/2);
     
-    
+    fill(255);
     rect(100, height-100, 50, 20);
+    fill(0, 255, 255);
+    if(mouseX>100 && mouseX<150)
+    {
+      if(mouseY>height-100 && mouseY<height-(100-20))
+      {
+        fill(0);
+      }
+    }
+    text("Menu", 125, height-90);
+    
+    fill(255);
     rect(width-100, height-100, 50, 20);
     fill(0, 255, 255);
-    text("Menu", 125, height-90);
+    if(mouseX>width-100 && mouseX<width-(50))
+    {
+      if(mouseY>height-100 && mouseY<height-(100-20))
+      {
+        fill(0);
+      }
+    }
     text("Play", width-75, height-90);
   }
   
@@ -175,12 +192,31 @@ void mainMenu()
   {
     background(0);
     fill(255);
-    text("Game over :(", width/2, height/2);
+    text("Game over :(", width/2, height/2-50);
+    text("Your score is: " + player.score, width/2, height/2);
     
+    fill(255);
     rect(100, height-100, 50, 20);
-    rect(width-100, height-100, 50, 20);
     fill(0, 255, 255);
+    if(mouseX>100 && mouseX<150)
+    {
+      if(mouseY>height-100 && mouseY<height-(100-20))
+      {
+        fill(0);
+      }
+    }
     text("Menu", 125, height-90);
+    
+    fill(255);
+    rect(width-110, height-100, 70, 20);
+    fill(0, 255, 255);
+    if(mouseX>width-110 && mouseX<width-(40))
+    {
+      if(mouseY>height-100 && mouseY<height-(100-20))
+      {
+        fill(0);
+      }
+    }
     text("Play again", width-75, height-90);
   }
 }
@@ -192,10 +228,10 @@ void landCheck()
   int num = 0;
   
   //apply gravity
-  if(start && j==0)
+  if(start && player.j == 0)
   {
     player.j = 2;
-    player.gravity = 10;
+    player.gravity = 15;
   }
   
   //stop player's fall while on land
@@ -209,6 +245,18 @@ void landCheck()
         player.j = 0;
         player.gravity = 0;
         player.pos.y = (platforms.get(num).pos.y - player.crw/2);
+      }
+      
+      //gravitational error margin
+      if(player.gravity > 20)
+      {
+        if(player.pos.y >= (platforms.get(num).pos.y - player.crw/2) && player.pos.y < (platforms.get(i).pos.y) + platforms.get(i).h + 10)
+        {
+          start = true; 
+          player.j = 0;
+          player.gravity = 0;
+          player.pos.y = (platforms.get(num).pos.y - player.crw/2);
+        }
       }
     }
   }
@@ -288,7 +336,7 @@ void platVariables()
   
   //wait for next platform
   gapcounter++;
-  if(gapcounter > (14)*gap)
+  if(gapcounter > (15)*gap)
   {
     gapcounter = 0;
   }

@@ -3,8 +3,8 @@ class Ball extends GO
   int crw = 30;
   String name;
   int score;
-  float gravity = 0;
-  int thrust = 30;
+  int gravity = 0;
+  int thrust = 12;
   int j = 0;
   float theta = 0;
   
@@ -26,9 +26,9 @@ class Ball extends GO
       forward.y = -(thrust - (gravity));
       
       //terminal velocity
-      if(gravity<30)
+      if(gravity<40)
       {
-        gravity += 0.5f;
+        gravity += 1;
       }
     }
     else
