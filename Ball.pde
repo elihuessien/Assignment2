@@ -25,7 +25,11 @@ class Ball extends GO
       //terminal velocity
       if(gravity<30)
       {
+<<<<<<< HEAD
         gravity = gravity + 0.5f;
+=======
+        gravity += .5;
+>>>>>>> 373c886438cb69f7fe7d92029736a2a4e207a6f4
       }
     }
     else
