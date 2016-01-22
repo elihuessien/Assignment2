@@ -1,18 +1,10 @@
 void setup()
 {
   size(800, 500);
-<<<<<<< HEAD
   textAlign(CENTER, CENTER);
-  
-  player = new Ball();
 }
 int menu = 0;
-=======
-  
-  player = new Ball();
-}
-
->>>>>>> 373c886438cb69f7fe7d92029736a2a4e207a6f4
+boolean init = true;
 boolean start = false;
 int j = 0;
 int gap;
@@ -21,16 +13,22 @@ int gapManager = 1;
 int platchg;
 int platon = 0;
 Ball player;
-<<<<<<< HEAD
 ArrayList<Platform> platforms = new ArrayList<Platform>();
-=======
-ArrayList<Platform> platforms= new ArrayList<Platform>();
->>>>>>> 373c886438cb69f7fe7d92029736a2a4e207a6f4
 int size = 0;
+
+void create()
+{
+  player = new Ball();
+  init = false;
+}
 
 void draw()
 {
-<<<<<<< HEAD
+  if(init)
+  {
+    create();
+  }
+  
   if(menu == 1)
   {
     //game
@@ -46,30 +44,13 @@ void draw()
     player.update();
     landCheck();
     player.render();
-    endcheck();
   }
-  else
-  {
-    mainMenu();
-  }
-=======
-  background(0);
-  stroke(255);
-  //makes platforms
-  platVariables();
-  //manages platforms
-  platOrganiser();
   
-  stroke(0);
-  player.update();
-  landCheck();
-  player.render();
->>>>>>> 373c886438cb69f7fe7d92029736a2a4e207a6f4
+  mainMenu();
 }
 
 void keyPressed()
 {
-<<<<<<< HEAD
   if(menu == 0)
   {
     menuOptions();
@@ -84,6 +65,7 @@ void keyPressed()
       if(player.j == 0 && start)
       {
         player.j = 1;
+        player.gravity = 0;
       }
     }
   }
@@ -129,7 +111,6 @@ void mousePressed()
     {
       if(mouseY>height-100 && mouseY<height-(100-20))
       {
-        cleanup();
         menu = 1;
       }
     }
@@ -167,6 +148,12 @@ void mainMenu()
     text("3: Highcores", width/2, height/2+20);
   }
   
+  if(menu == 1)
+  {
+    text(player.name, 100, 50);
+    text("Score: " + player.score, width-100, 50);
+  }
+  
   //instructions
   if(menu == 2)
   {
@@ -198,36 +185,20 @@ void mainMenu()
   }
 }
 
-=======
-  if( key == ' ')
-  {
-    if(player.j == 0 && start)
-    {
-      player.j = 1;
-    }
-  }
-}  
->>>>>>> 373c886438cb69f7fe7d92029736a2a4e207a6f4
 
 
 void landCheck()
 {
   int num = 0;
   
-<<<<<<< HEAD
   //apply gravity
-=======
->>>>>>> 373c886438cb69f7fe7d92029736a2a4e207a6f4
   if(start && j==0)
   {
     player.j = 2;
     player.gravity = 10;
   }
   
-<<<<<<< HEAD
   //stop player's fall while on land
-=======
->>>>>>> 373c886438cb69f7fe7d92029736a2a4e207a6f4
   for(int i=0; i<size; i++)
   {
     if(player.pos.x > platforms.get(i).pos.x && player.pos.x <= (platforms.get(i).pos.x + platforms.get(i).w))
@@ -241,11 +212,12 @@ void landCheck()
       }
     }
   }
-<<<<<<< HEAD
-=======
   
-  println(player.j);
->>>>>>> 373c886438cb69f7fe7d92029736a2a4e207a6f4
+  if(player.pos.y > height)
+  {
+    cleanup();
+    menu = 4;
+  }
 }
 
 void platOrganiser()
@@ -264,6 +236,7 @@ void platOrganiser()
     if(platforms.get(i).pos.x < 0)
     {
       delete = i;
+      player.score++;
     }
   }
   if(delete > -1)
@@ -309,11 +282,7 @@ void platVariables()
     platform.pos.x = width;
     platform.pos.y = 100+(50*platon);
     platforms.add(platform);
-<<<<<<< HEAD
     size++; 
-=======
-    size++;
->>>>>>> 373c886438cb69f7fe7d92029736a2a4e207a6f4
   }
   
   
@@ -324,15 +293,7 @@ void platVariables()
     gapcounter = 0;
   }
 }
-<<<<<<< HEAD
 
-void endcheck()
-{
-  if(player.pos.y > height)
-  {
-    menu = 4;
-  }
-}
 
 void cleanup()
 {
@@ -343,11 +304,10 @@ void cleanup()
   size = 0;
   
   menu = 4;
+  init = true;
   start = false;
   j = 0;
   gapcounter = 0;
   gapManager = 1;
   platon = 0;
 }
-=======
->>>>>>> 373c886438cb69f7fe7d92029736a2a4e207a6f4
