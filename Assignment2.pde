@@ -14,18 +14,14 @@ int gapManager = 1;
 int platchg;
 int platon = 0;
 Ball player;
-ArrayList<Platform> platforms= new ArrayList<Platform>();
+ArrayList<Platform> platforms = new ArrayList<Platform>();
 int size = 0;
 
 void draw()
 {
-  if(menu == 0)
-  {
-    startup();
-  }
-  
   if(menu == 1)
   {
+    //game
     background(0);
     fill(255);
     stroke(255);
@@ -40,14 +36,10 @@ void draw()
     player.render();
     endcheck();
   }
-  
-  if(menu == 2)
+  else
   {
-    instructions();
+    mainMenu();
   }
-  
-  if(menu == 4)
-  
 }
 
 void keyPressed()
@@ -69,11 +61,7 @@ void keyPressed()
       }
     }
   }
-  
-  //game option 3
-  if(menu == 3)
-  {
-  }
+
 }
 
 void mousePressed()
@@ -98,6 +86,28 @@ void mousePressed()
       }
     }
   }
+  
+  if(menu == 4)
+  {
+    //menu botton
+    if(mouseX>100 && mouseX<150)
+    {
+      if(mouseY>height-100 && mouseY<height-(100-20))
+      {
+        menu = 0;
+      }
+    }
+    
+    //play botton
+    if(mouseX>width-100 && mouseX<width-(50))
+    {
+      if(mouseY>height-100 && mouseY<height-(100-20))
+      {
+        cleanup();
+        menu = 1;
+      }
+    }
+  }
 }
 
 void menuOptions()
@@ -118,33 +128,50 @@ void menuOptions()
   }
 }
 
-
-void instructions()
+void mainMenu()
 {
-  background(0);
-  fill(255);
-  text("Jump!", width/2, height/2-100);
-  text("Press spacebar to jump", width/2, height/2 - 20);
-  text("Don't fall!", width/2, height/2);
+  //opening
+  if(menu == 0)
+  {
+    fill(255);
+    background(0);
+    text("Jump!", width/2, height/2-100);
+    text("1: Play", width/2, height/2-20);
+    text("2: Instructions", width/2, height/2);
+    text("3: Highcores", width/2, height/2+20);
+  }
   
+  //instructions
+  if(menu == 2)
+  {
+    background(0);
+    fill(255);
+    text("Jump!", width/2, height/2-100);
+    text("Press spacebar to jump", width/2, height/2 - 20);
+    text("Don't fall!", width/2, height/2);
+    
+    
+    rect(100, height-100, 50, 20);
+    rect(width-100, height-100, 50, 20);
+    fill(0, 255, 255);
+    text("Menu", 125, height-90);
+    text("Play", width-75, height-90);
+  }
   
-  rect(100, height-100, 50, 20);
-  rect(width-100, height-100, 50, 20);
-  fill(0, 255, 255);
-  text("Menu", 125, height-90);
-  text("Play", width-75, height-90);
+  if(menu == 4)
+  {
+    background(0);
+    fill(255);
+    text("Game over :(", width/2, height/2);
+    
+    rect(100, height-100, 50, 20);
+    rect(width-100, height-100, 50, 20);
+    fill(0, 255, 255);
+    text("Menu", 125, height-90);
+    text("Play again", width-75, height-90);
+  }
 }
 
-//openning
-void startup()
-{
-  fill(255);
-  background(0);
-  text("Jump!", width/2, height/2-100);
-  text("1: Play", width/2, height/2-20);
-  text("2: Instructions", width/2, height/2);
-  text("3: Highcores", width/2, height/2+20);
-}
 
 
 void landCheck()
@@ -172,8 +199,6 @@ void landCheck()
       }
     }
   }
-  
-  println(player.j);
 }
 
 void platOrganiser()
@@ -237,7 +262,7 @@ void platVariables()
     platform.pos.x = width;
     platform.pos.y = 100+(50*platon);
     platforms.add(platform);
-    size++;
+    size++; 
   }
   
   
@@ -251,8 +276,24 @@ void platVariables()
 
 void endcheck()
 {
-  if(player.y > height)
+  if(player.pos.y > height)
   {
     menu = 4;
   }
+}
+
+void cleanup()
+{
+  for(int i=0; i<size; i++)
+  {
+    platforms.remove(0);
+  }
+  size = 0;
+  
+  menu = 4;
+  start = false;
+  j = 0;
+  gapcounter = 0;
+  gapManager = 1;
+  platon = 0;
 }
