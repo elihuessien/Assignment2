@@ -263,50 +263,6 @@ void mainMenu()
 
 
 
-void landCheck()
-{
-  
-  //apply gravity
-  if(start && player.j == 0)
-  {
-    player.j = 2;
-    player.gravity = 15;
-  }
-  
-  //stop player's fall while on land
-  for(int i=0; i<size; i++)
-  {
-    if(player.pos.x > platforms.get(i).pos.x && player.pos.x <= (platforms.get(i).pos.x + platforms.get(i).w))
-    {
-      if(player.pos.y >= (platforms.get(i).pos.y - player.crw/2) && player.pos.y < (platforms.get(i).pos.y)+ platforms.get(i).h)
-      {
-        start = true;
-        player.j = 0;
-        player.gravity = 0;
-        player.pos.y = (platforms.get(i).pos.y - player.crw/2);
-      }
-      
-      //gravitational error margin
-      if(player.gravity > 20)
-      {
-        if(player.pos.y >= (platforms.get(i).pos.y - player.crw/2) && player.pos.y < (platforms.get(i).pos.y) + platforms.get(i).h + 10)
-        {
-          start = true; 
-          player.j = 0;
-          player.gravity = 0;
-          player.pos.y = (platforms.get(i).pos.y - player.crw/2);
-        }
-      }
-    }
-  }
-  
-  if(player.pos.y > height)
-  {
-    scorecheck();
-    menu = 4;
-  }
-}
-
 void platOrganiser()
 {
   for(Platform p: platforms)
@@ -378,6 +334,50 @@ void platVariables()
   if(gapcounter > (15)*gap)
   {
     gapcounter = 0;
+  }
+}
+
+void landCheck()
+{
+  
+  //apply gravity
+  if(start && player.j == 0)
+  {
+    player.j = 2;
+    player.gravity = 15;
+  }
+  
+  //stop player's fall while on land
+  for(int i=0; i<size; i++)
+  {
+    if(player.pos.x > platforms.get(i).pos.x && player.pos.x <= (platforms.get(i).pos.x + platforms.get(i).w))
+    {
+      if(player.pos.y >= (platforms.get(i).pos.y - player.crw/2) && player.pos.y < (platforms.get(i).pos.y)+ platforms.get(i).h)
+      {
+        start = true;
+        player.j = 0;
+        player.gravity = 0;
+        player.pos.y = (platforms.get(i).pos.y - player.crw/2);
+      }
+      
+      //gravitational error margin
+      if(player.gravity > 20)
+      {
+        if(player.pos.y >= (platforms.get(i).pos.y - player.crw/2) && player.pos.y < (platforms.get(i).pos.y) + platforms.get(i).h + 10)
+        {
+          start = true; 
+          player.j = 0;
+          player.gravity = 0;
+          player.pos.y = (platforms.get(i).pos.y - player.crw/2);
+        }
+      }
+    }
+  }
+  
+  if(player.pos.y > height)
+  {
+    scorecheck();
+    menu = 4;
   }
 }
 
