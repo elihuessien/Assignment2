@@ -6,8 +6,10 @@ void setup()
   loadScores();
 }
 int menu = 0;
+String name = "";
 boolean init = true;
 boolean start = false;
+boolean named = false;
 int j = 0;
 int gap;
 int gapcounter = 0;
@@ -50,18 +52,21 @@ void draw()
   
   if(menu == 1)
   {
-    //game
-    fill(255);
-    stroke(255);
-    //makes platforms
-    platVariables();
-    //manages platforms
-    platOrganiser();
-    
-    stroke(0);
-    player.update();
-    landCheck();
-    player.render();
+    if(named)
+    {
+      //game
+      fill(255);
+      stroke(255);
+      //makes platforms
+      platVariables();
+      //manages platforms
+      platOrganiser();
+      
+      stroke(0);
+      player.update();
+      landCheck();
+      player.render();
+    }
   }
   
   mainMenu();
@@ -72,13 +77,29 @@ void keyPressed()
   //game option 1
   if(menu == 1)
   {
-    //jump
-    if( key == ' ')
+    if(named)
     {
-      if(player.j == 0 && start)
+      //jump
+      if( key == ' ')
       {
-        player.j = 1;
-        player.gravity = 0;
+        if(player.j == 0 && start)
+        {
+          player.j = 1;
+          player.gravity = 0;
+        }
+      }
+    }
+    else
+    {
+      if( ((key>='A')&&(key<='Z')) || ((key>='a')&&(key<='z')) || ((key>='0')&&(key<='9')) )
+      {
+         name += key;
+      }
+      
+      if( (key==ENTER) || (key==RETURN) ) 
+      {
+        named = true;
+        player.name = name;
       }
     }
   }
@@ -86,7 +107,6 @@ void keyPressed()
   {
     menuOptions();
   }
-
 }
 
 void mousePressed()
@@ -170,8 +190,15 @@ void mainMenu()
   
   if(menu == 1)
   {
-    text(player.name, 100, 50);
-    text("Score: " + player.score, width-100, 50);
+    if(named)
+    {
+      text(player.name, 100, 50);
+      text("Score: " + player.score, width-100, 50);
+    }
+    else
+    {
+      text("Enter your name please: " + name, width/2, height/2);
+    }
   }
   
   //instructions
@@ -397,6 +424,7 @@ void cleanup()
   
   
   start = false;
+  named = false;
   j = 0;
   gapcounter = 0;
   gapManager = 1;
