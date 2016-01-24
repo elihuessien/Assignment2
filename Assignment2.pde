@@ -2,6 +2,8 @@ void setup()
 {
   size(800, 500);
   textAlign(CENTER, CENTER);
+  
+  loadScores();
 }
 int menu = 0;
 boolean init = true;
@@ -16,6 +18,20 @@ Ball player;
 ArrayList<Platform> platforms = new ArrayList<Platform>();
 int size = 0;
 
+ArrayList<Score> scores = new ArrayList<Score>();
+
+void loadScores()
+{
+  String[] lines = loadStrings("scores.txt");
+ 
+  for(String line:lines)
+  {
+    String[] elements = line.split(" "); 
+    Score score = new Score(elements[0], elements[1], parseInt(elements[2]));
+    scores.add(score);
+  }
+}
+
 void create()
 {
   player = new Ball();
@@ -24,15 +40,17 @@ void create()
 
 void draw()
 {
+  background(0);
+  
   if(init)
   {
+    cleanup();
     create();
   }
   
   if(menu == 1)
   {
     //game
-    background(0);
     fill(255);
     stroke(255);
     //makes platforms
@@ -50,12 +68,7 @@ void draw()
 }
 
 void keyPressed()
-{
-  if(menu == 0)
-  {
-    menuOptions();
-  }
-  
+{ 
   //game option 1
   if(menu == 1)
   {
@@ -68,6 +81,10 @@ void keyPressed()
         player.gravity = 0;
       }
     }
+  }
+  else
+  {
+    menuOptions();
   }
 
 }
@@ -90,6 +107,7 @@ void mousePressed()
     {
       if(mouseY>height-100 && mouseY<height-(100-20))
       {
+        init = true;
         menu = 1;
       }
     }
@@ -111,6 +129,7 @@ void mousePressed()
     {
       if(mouseY>height-100 && mouseY<height-(100-20))
       {
+        init = true;
         menu = 1;
       }
     }
@@ -121,6 +140,7 @@ void menuOptions()
 {
   if( key == '1')
   {
+    init = true;
     menu = 1;
   }
   
@@ -188,6 +208,26 @@ void mainMenu()
     text("Play", width-75, height-90);
   }
   
+  
+  //scores menu
+  if( menu == 3)
+  {
+    fill(255);
+    text("Jump!", width/2, height/2-100);
+    
+    textAlign(LEFT);
+    text("1st: " + scores.get(0).name , width/2-50, height/2-20);
+    text("score: " + scores.get(0).score , width/2+50, height/2-20);
+    
+    text("2nd: " + scores.get(1).name , width/2-50, height/2);
+    text("score: " + scores.get(1).score , width/2+50, height/2);
+    
+    text("3rd: " + scores.get(2).name , width/2-50, height/2+20);
+    text("score: " + scores.get(2).score , width/2+50, height/2+20);
+    textAlign(CENTER);
+  }
+  
+  //game over menu
   if(menu == 4)
   {
     background(0);
@@ -225,7 +265,6 @@ void mainMenu()
 
 void landCheck()
 {
-  int num = 0;
   
   //apply gravity
   if(start && player.j == 0)
@@ -239,23 +278,23 @@ void landCheck()
   {
     if(player.pos.x > platforms.get(i).pos.x && player.pos.x <= (platforms.get(i).pos.x + platforms.get(i).w))
     {
-      if(player.pos.y >= (platforms.get(num).pos.y - player.crw/2) && player.pos.y < (platforms.get(i).pos.y)+ platforms.get(i).h)
+      if(player.pos.y >= (platforms.get(i).pos.y - player.crw/2) && player.pos.y < (platforms.get(i).pos.y)+ platforms.get(i).h)
       {
-        start = true; 
+        start = true;
         player.j = 0;
         player.gravity = 0;
-        player.pos.y = (platforms.get(num).pos.y - player.crw/2);
+        player.pos.y = (platforms.get(i).pos.y - player.crw/2);
       }
       
       //gravitational error margin
       if(player.gravity > 20)
       {
-        if(player.pos.y >= (platforms.get(num).pos.y - player.crw/2) && player.pos.y < (platforms.get(i).pos.y) + platforms.get(i).h + 10)
+        if(player.pos.y >= (platforms.get(i).pos.y - player.crw/2) && player.pos.y < (platforms.get(i).pos.y) + platforms.get(i).h + 10)
         {
           start = true; 
           player.j = 0;
           player.gravity = 0;
-          player.pos.y = (platforms.get(num).pos.y - player.crw/2);
+          player.pos.y = (platforms.get(i).pos.y - player.crw/2);
         }
       }
     }
@@ -263,7 +302,7 @@ void landCheck()
   
   if(player.pos.y > height)
   {
-    cleanup();
+    scorecheck();
     menu = 4;
   }
 }
@@ -342,6 +381,11 @@ void platVariables()
   }
 }
 
+void scorecheck()
+{
+  println("hi");
+}
+
 
 void cleanup()
 {
@@ -351,8 +395,7 @@ void cleanup()
   }
   size = 0;
   
-  menu = 4;
-  init = true;
+  
   start = false;
   j = 0;
   gapcounter = 0;
