@@ -197,6 +197,7 @@ void mainMenu()
     }
     else
     {
+      fill(255);
       text("Enter your name please: " + name, width/2, height/2);
     }
   }
@@ -366,13 +367,8 @@ void platVariables()
 
 void landCheck()
 {
-  
-  //apply gravity
-  if(start && player.j == 0)
-  {
-    player.j = 2;
-    player.gravity = 15;
-  }
+  int num = 1;
+  int j = 0;
   
   //stop player's fall while on land
   for(int i=0; i<size; i++)
@@ -381,10 +377,8 @@ void landCheck()
     {
       if(player.pos.y >= (platforms.get(i).pos.y - player.crw/2) && player.pos.y < (platforms.get(i).pos.y)+ platforms.get(i).h)
       {
-        start = true;
-        player.j = 0;
-        player.gravity = 0;
-        player.pos.y = (platforms.get(i).pos.y - player.crw/2);
+        num = 0;
+        j = i;
       }
       
       //gravitational error margin
@@ -392,13 +386,28 @@ void landCheck()
       {
         if(player.pos.y >= (platforms.get(i).pos.y - player.crw/2) && player.pos.y < (platforms.get(i).pos.y) + platforms.get(i).h + 10)
         {
-          start = true; 
-          player.j = 0;
-          player.gravity = 0;
-          player.pos.y = (platforms.get(i).pos.y - player.crw/2);
+          num = 0;
+          j = i;
         }
       }
     }
+  }
+  
+  //apply gravity
+  if(num == 1)
+  {
+    if(start && player.j == 0)
+    {
+      player.j = 2;
+      player.gravity = 15;
+    }
+  }
+  else
+  {
+    start = true;
+    player.j = 0;
+    player.gravity = 0;
+    player.pos.y = (platforms.get(j).pos.y - player.crw/2);
   }
   
   if(player.pos.y > height)
@@ -425,6 +434,7 @@ void cleanup()
   
   start = false;
   named = false;
+  name = "";
   j = 0;
   gapcounter = 0;
   gapManager = 1;
