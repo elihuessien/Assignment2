@@ -213,24 +213,24 @@ void mainMenu()
     
     fill(255);
     rect(100, height-100, 50, 20);
-    fill(0, 255, 255);
+    fill(0);
     if(mouseX>100 && mouseX<150)
     {
       if(mouseY>height-100 && mouseY<height-(100-20))
       {
-        fill(0);
+        fill(0, 255, 255);
       }
     }
     text("Menu", 125, height-90);
     
     fill(255);
     rect(width-100, height-100, 50, 20);
-    fill(0, 255, 255);
+    fill(0);
     if(mouseX>width-100 && mouseX<width-(50))
     {
       if(mouseY>height-100 && mouseY<height-(100-20))
       {
-        fill(0);
+        fill(0, 255, 255);
       }
     }
     text("Play", width-75, height-90);
@@ -265,24 +265,24 @@ void mainMenu()
     
     fill(255);
     rect(100, height-100, 50, 20);
-    fill(0, 255, 255);
+    fill(0);
     if(mouseX>100 && mouseX<150)
     {
       if(mouseY>height-100 && mouseY<height-(100-20))
       {
-        fill(0);
+        fill(0, 255, 255);
       }
     }
     text("Menu", 125, height-90);
     
     fill(255);
     rect(width-110, height-100, 70, 20);
-    fill(0, 255, 255);
+    fill(0);
     if(mouseX>width-110 && mouseX<width-(40))
     {
       if(mouseY>height-100 && mouseY<height-(100-20))
       {
-        fill(0);
+        fill(0, 255, 255);
       }
     }
     text("Play again", width-75, height-90);
