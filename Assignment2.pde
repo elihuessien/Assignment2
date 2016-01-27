@@ -10,7 +10,6 @@ String name = "";
 boolean init = true;
 boolean start = false;
 boolean named = false;
-int j = 0;
 int gap;
 int gapcounter = 0;
 int gapManager = 1;
@@ -388,10 +387,29 @@ void scorecheck()
   Score score = new Score("11th", player.name, player.score);
   scores.add(score);
   
-  int tempScore;
-  String tempName;
+  int tempScore = scores.get(0).score;
+  String tempName = scores.get(0).name;
   
+  //sorting algorithm
+  for(int j = 0; j < scoreNum; j++)
+  {
+    for(int i = 0; i < scoreNum; i++)
+    {
+      if(scores.get(i).score < scores.get(i+1).score)
+      {
+        tempScore = scores.get(i).score;
+        tempName = scores.get(i).name;
+        
+        scores.get(i).score = scores.get(i+1).score;
+        scores.get(i).name = scores.get(i+1).name;
+        
+        scores.get(i+1).score = tempScore;
+        scores.get(i+1).name = tempName;
+      }
+    }
+  }
   
+  scores.remove(scoreNum);
 }
 
 
@@ -407,7 +425,6 @@ void cleanup()
   start = false;
   named = false;
   name = "";
-  j = 0;
   gapcounter = 0;
   gapManager = 1;
   platon = 0;
