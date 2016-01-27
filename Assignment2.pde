@@ -20,6 +20,7 @@ Ball player;
 ArrayList<Platform> platforms = new ArrayList<Platform>();
 int size = 0;
 
+int scoreNum = 0;
 ArrayList<Score> scores = new ArrayList<Score>();
 
 void loadScores()
@@ -31,6 +32,12 @@ void loadScores()
     String[] elements = line.split(" "); 
     Score score = new Score(elements[0], elements[1], parseInt(elements[2]));
     scores.add(score);
+    scoreNum++;
+  }
+  
+  for(int i = 0; i<scores.size(); i++ )
+  {
+    println(scores.get(i).place + " " + scores.get(i).name + " " +scores.get(i).score);
   }
 }
 
@@ -419,7 +426,10 @@ void landCheck()
 
 void scorecheck()
 {
-  println("hi");
+  //make a new score element
+  Score score = new Score("11th", playe.name, player.score);
+  scores.add(score);
+  
 }
 
 
