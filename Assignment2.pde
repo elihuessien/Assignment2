@@ -56,7 +56,7 @@ void draw()
     create();
   }
   
-  if(menu == 1)
+  if(menu == 2)
   {
     if(named)
     {
@@ -81,7 +81,7 @@ void draw()
 void keyPressed()
 { 
   //game option 1
-  if(menu == 1)
+  if(menu == 2)
   {
     if(named)
     {
@@ -117,14 +117,14 @@ void keyPressed()
 
 void mousePressed()
 {
-  if(menu > 1)
+  if(menu > 2)
   {
     //menu botton
     if(mouseX>100 && mouseX<150)
     {
       if(mouseY>height-100 && mouseY<height-(100-20))
       {
-        menu = 0;
+        menu = 1;
       }
     }
     
@@ -134,7 +134,7 @@ void mousePressed()
       if(mouseY>height-100 && mouseY<height-(100-20))
       {
         init = true;
-        menu = 1;
+        menu = 2;
       }
     }
   }
@@ -145,24 +145,68 @@ void menuOptions()
   if( key == '1')
   {
     init = true;
-    menu = 1;
+    menu = 2;
   }
   
   if( key == '2')
   {
-    menu = 2;
+    menu = 3;
   }
   
   if( key == '3')
   {
-    menu = 3;
+    menu = 4;
   }
 }
 
 void mainMenu()
 {
-  //opening
+  //Level Select
   if(menu == 0)
+  {
+    fill(255);
+    stroke(255);
+    text("Jump!", width/2, height/2-100);
+    fill(0);
+    rect(width/2-25, height/2-30, 50, 20);
+    fill(255);
+    if(mouseX > width/2-25 && mouseX < width/2+25)
+    {
+      if(mouseY > height/2-30 && mouseY < height/2-10)
+      {
+        fill(0, 255, 255);
+      }
+    }
+    text("Easy", width/2, height/2-20);
+    
+    
+    fill(0);
+    rect(width/2-25, height/2-10, 50, 20);
+    fill(255);
+    if(mouseX > width/2-25 && mouseX < width/2+25)
+    {
+      if(mouseY > height/2-10 && mouseY < height/2+10)
+      {
+        fill(0, 255, 255);
+      }
+    }
+    text("Medium", width/2, height/2);
+    
+    
+    fill(0);
+    rect(width/2-25, height/2+10, 50, 20);
+    fill(255);
+    if(mouseX > width/2-25 && mouseX < width/2+25)
+    {
+      if(mouseY > height/2+10 && mouseY < height/2+30)
+      {
+        fill(0, 255, 255);
+      }
+    }
+    text("Hard", width/2, height/2+20);
+  }
+  //opening
+  if(menu == 1)
   {
     fill(255);
     background(0);
@@ -172,7 +216,7 @@ void mainMenu()
     text("3: Highcores", width/2, height/2+20);
   }
   
-  if(menu == 1)
+  if(menu == 2)
   {
     if(named)
     {
@@ -187,7 +231,7 @@ void mainMenu()
   }
   
   //instructions
-  if(menu == 2)
+  if(menu == 3)
   {
     background(0);
     fill(255);
@@ -198,7 +242,7 @@ void mainMenu()
   
   
   //scores menu
-  if( menu == 3)
+  if( menu == 4)
   {
     fill(255);
     text("Jump!", width/2, height/2-100);
@@ -213,7 +257,7 @@ void mainMenu()
   }
   
   //game over menu
-  if(menu == 4)
+  if(menu == 5)
   {
     background(0);
     fill(255);
@@ -225,7 +269,7 @@ void mainMenu()
     fill(0);
   }
   
-  if(menu > 1)
+  if(menu > 2)
   {
     fill(255);
     rect(100, height-100, 50, 20);
