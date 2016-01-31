@@ -2,10 +2,9 @@ void setup()
 {
   size(800, 500);
   textAlign(CENTER, CENTER);
-  
-  loadScores();
 }
 int menu = 0;
+int level = 0;
 String name = "";
 boolean init = true;
 boolean start = false;
@@ -54,6 +53,7 @@ void draw()
   {
     cleanup();
     create();
+    loadScores();
   }
   
   if(menu == 2)
@@ -117,6 +117,40 @@ void keyPressed()
 
 void mousePressed()
 {
+  if(menu == 0)
+  {
+    if(mouseX > width/2-25 && mouseX < width/2+25)
+    {
+      if(mouseY > height/2-30 && mouseY < height/2-10)
+      {
+        init = true;
+        level = 1;
+        menu = 1;
+      }
+    }//end easy button if
+    
+    
+    if(mouseX > width/2-25 && mouseX < width/2+25)
+    {
+      if(mouseY > height/2-10 && mouseY < height/2+10)
+      {
+        init = true;
+        level = 2;
+        menu = 1;
+      }
+    }//end medium button if
+    
+    
+    if(mouseX > width/2-25 && mouseX < width/2+25)
+    {
+      if(mouseY > height/2+10 && mouseY < height/2+30)
+      {
+        init = true;
+        level = 3;
+        menu = 1;
+      }
+    }//end Hard button if
+  }
   if(menu > 2)
   {
     //menu botton
