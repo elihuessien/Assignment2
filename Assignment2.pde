@@ -6,7 +6,7 @@ void setup()
 int menu = 0;
 int level = 0;
 String name = "";
-boolean init = true;
+boolean init = false;
 boolean start = false;
 boolean named = false;
 int gap;
@@ -16,21 +16,19 @@ int platchg;
 int platon = 0;
 Ball player;
 ArrayList<Platform> platforms = new ArrayList<Platform>();
-int size = 0;
 
 int scoreNum = 0;
 ArrayList<Score> scores = new ArrayList<Score>();
 
 void loadScores()
 {
-  String[] lines = loadStrings("scores.txt");
- 
+  String[] lines = loadStrings("easy_scores.txt");
+  
   for(String line:lines)
   {
     String[] elements = line.split(" "); 
     Score score = new Score(elements[0], elements[1], parseInt(elements[2]));
     scores.add(score);
-    scoreNum++;
   }
   
   for(int i = 0; i<scores.size(); i++ )
@@ -48,6 +46,7 @@ void create()
 void draw()
 {
   background(0);
+  mainMenu();
   
   if(init)
   {
@@ -74,8 +73,6 @@ void draw()
       player.render();
     }
   }
-  
-  mainMenu();
 }
 
 void keyPressed()
@@ -201,6 +198,8 @@ void mainMenu()
     fill(255);
     stroke(255);
     text("Jump!", width/2, height/2-100);
+    
+    //easy botton
     fill(0);
     rect(width/2-25, height/2-30, 50, 20);
     fill(255);
@@ -213,7 +212,7 @@ void mainMenu()
     }
     text("Easy", width/2, height/2-20);
     
-    
+    //medium botton
     fill(0);
     rect(width/2-25, height/2-10, 50, 20);
     fill(255);
@@ -226,7 +225,7 @@ void mainMenu()
     }
     text("Medium", width/2, height/2);
     
-    
+    //hard botton
     fill(0);
     rect(width/2-25, height/2+10, 50, 20);
     fill(255);
@@ -344,7 +343,7 @@ void platOrganiser()
   int delete = -1;
   
   //delete used platforms
-  for(int i=0; i<size; i++)
+  for(int i=0; i < platforms.size(); i++)
   {
     if(platforms.get(i).pos.x < 0)
     {
@@ -355,7 +354,6 @@ void platOrganiser()
   if(delete > -1)
   {
     platforms.remove(delete);
-    size--;
   }
 }
 
@@ -395,7 +393,6 @@ void platVariables()
     platform.pos.x = width;
     platform.pos.y = 100+(50*platon);
     platforms.add(platform);
-    size++; 
   }
   
   
@@ -413,7 +410,7 @@ void landCheck()
   int j = 0;
   
   //stop player's fall while on land
-  for(int i=0; i<size; i++)
+  for(int i=0; i < platforms.size(); i++)
   {
     if(player.pos.x > platforms.get(i).pos.x && player.pos.x <= (platforms.get(i).pos.x + platforms.get(i).w))
     {
@@ -455,23 +452,27 @@ void landCheck()
   if(player.pos.y > height)
   {
     scorecheck();
-    menu = 4;
+    menu = 5;
   }
 }
 
 void scorecheck()
 {
+  for(int i = 0; i<scores.size(); i++ )
+  {
+    println(scores.get(i).place + " " + scores.get(i).name + " " +scores.get(i).score);
+  }
   //make a new score element
-  Score score = new Score("11th", player.name, player.score);
+  Score score = new Score("extra", player.name, player.score);
   scores.add(score);
   
   int tempScore = scores.get(0).score;
   String tempName = scores.get(0).name;
   
   //sorting algorithm
-  for(int j = 0; j < scoreNum; j++)
+  for(int j = 0; j < scores.size(); j++)
   {
-    for(int i = 0; i < scoreNum; i++)
+    for(int i = 0; i < scores.size()-1; i++)
     {
       if(scores.get(i).score < scores.get(i+1).score)
       {
@@ -487,17 +488,21 @@ void scorecheck()
     }
   }
   
-  scores.remove(scoreNum);
+  scores.remove(scores.size()-1);
 }
 
 
 void cleanup()
 {
-  for(int i=0; i<size; i++)
+  for(int i=0; i < platforms.size(); i++)
   {
     platforms.remove(0);
   }
-  size = 0;
+  
+  for(int i=0; i < scores.size(); i++)
+  {
+    scores.remove(0);
+  }
   
   
   start = false;
