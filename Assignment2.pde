@@ -489,27 +489,39 @@ void landCheck()
 void scorecheck()
 {
   //make a new score element
-  Score score = new Score("11th", player.name, player.score);
+  Score score = new Score("Extra", player.name, player.score);
   scores.add(score);
   
   int tempScore = scores.get(0).score;
   String tempName = scores.get(0).name;
   
-  //sorting algorithm
-  for(int j = 0; j < scoreNum; j++)
+  if(scores.get(scoreNum).score > scores.get(scoreNum-(3-level)).score)
   {
-    for(int i = 0; i < scoreNum; i++)
+    tempScore = scores.get(scoreNum).score;
+    tempName = scores.get(scoreNum).name;
+    
+    scores.get(scoreNum).score = scores.get(scoreNum-(3-level)).score;
+    scores.get(scoreNum).name = scores.get(scoreNum-(3-level)).name;
+    
+    scores.get(scoreNum-(3-level)).score = tempScore;
+    scores.get(scoreNum-(3-level)).name = tempName;
+  }
+  
+  //sorting algorithm
+  for(int j = level; j < scoreNum; j+=3)
+  {
+    for(int i = level; i < scoreNum; i+=3)
     {
-      if(scores.get(i).score < scores.get(i+1).score)
+      if(scores.get(i).score < scores.get(i+3).score)
       {
         tempScore = scores.get(i).score;
         tempName = scores.get(i).name;
         
-        scores.get(i).score = scores.get(i+1).score;
-        scores.get(i).name = scores.get(i+1).name;
+        scores.get(i).score = scores.get(i+3).score;
+        scores.get(i).name = scores.get(i+3).name;
         
-        scores.get(i+1).score = tempScore;
-        scores.get(i+1).name = tempName;
+        scores.get(i+3).score = tempScore;
+        scores.get(i+3).name = tempName;
       }
     }
   }
