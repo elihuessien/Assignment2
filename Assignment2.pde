@@ -97,7 +97,7 @@ void keyPressed()
     }
     else
     {
-      if( ((key>='A')&&(key<='Z')) || ((key>='a')&&(key<='z')) || ((key>='0')&&(key<='9')) )
+      if( ((key>='A')&&(key<='Z')) || ((key>='a')&&(key<='z')) || ((key>='0')&&(key<='9')) && name.length() < 10 )
       {
          name += key;
       }
@@ -124,7 +124,7 @@ void mousePressed()
       if(mouseY > height/2-30 && mouseY < height/2-10)
       {
         init = true;
-        level = 1;
+        level = 0;
         menu = 1;
       }
     }//end easy button if
@@ -135,7 +135,7 @@ void mousePressed()
       if(mouseY > height/2-10 && mouseY < height/2+10)
       {
         init = true;
-        level = 2;
+        level = 1;
         menu = 1;
       }
     }//end medium button if
@@ -146,11 +146,24 @@ void mousePressed()
       if(mouseY > height/2+10 && mouseY < height/2+30)
       {
         init = true;
-        level = 3;
+        level = 2;
         menu = 1;
       }
     }//end Hard button if
   }
+  
+  if(menu == 1)
+  {
+    //level select menu botton
+    if(mouseX>100 && mouseX<150)
+    {
+      if(mouseY>height-100 && mouseY<height-(100-20))
+      {
+        menu = 0;
+      }
+    }
+  }
+  
   if(menu > 2)
   {
     //menu botton
@@ -248,6 +261,18 @@ void mainMenu()
     text("1: Play", width/2, height/2-20);
     text("2: Instructions", width/2, height/2);
     text("3: Highcores", width/2, height/2+20);
+    
+    fill(255);
+    rect(100, height-100, 50, 20);
+    fill(0);
+    if(mouseX>100 && mouseX<150)
+    {
+      if(mouseY>height-100 && mouseY<height-(100-20))
+      {
+        fill(0, 255, 255);
+      }
+    }
+    text("Levels", 125, height-90);
   }
   
   if(menu == 2)
@@ -282,10 +307,12 @@ void mainMenu()
     text("Jump!", width/2, height/2-100);
     
     textAlign(LEFT, CENTER);
-    for(int i = 0; i<scores.size(); i++ )
+    int j = 0;
+    for(int i = level; i<scores.size(); i+=3 )
     {
-      text(scores.get(i).place + ": " + scores.get(i).name , width/2-70, height/2+(-20+(i*20)));
-      text("score: " + scores.get(i).score , width/2+40, height/2+(-20+i*20));
+      text(scores.get(i).place + ": " + scores.get(i).name , width/2-70, height/2+(-20+(j*20)));
+      text("score: " + scores.get(i).score , width/2+40, height/2+(-20+j*20));
+      j++;
     }
     textAlign(CENTER, CENTER);
   }
