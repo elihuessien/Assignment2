@@ -508,9 +508,9 @@ void scorecheck()
   }
   
   //sorting algorithm
-  for(int j = level; j < scoreNum; j+=3)
+  for(int j = level; j < scoreNum-3; j+=3)
   {
-    for(int i = level; i < scoreNum; i+=3)
+    for(int i = level; i < scoreNum-3; i+=3)
     {
       if(scores.get(i).score < scores.get(i+3).score)
       {
