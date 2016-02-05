@@ -97,7 +97,7 @@ void keyPressed()
     }
     else
     {
-      if( ((key>='A')&&(key<='Z')) || ((key>='a')&&(key<='z')) || ((key>='0')&&(key<='9')) && name.length() < 10 )
+      if( (((key>='A')&&(key<='Z')) || ((key>='a')&&(key<='z')) || ((key>='0')&&(key<='9'))) && name.length() < 10 )
       {
          name += key;
       }
