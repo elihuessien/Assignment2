@@ -546,6 +546,7 @@ void cleanup()
   gapManager = 1;
   platon = 0;
   
+  /*
   PrintWriter saveScores = createWriter("scores.txt");
   
   for(int i = 0; i<scores.size(); i++ )
@@ -554,5 +555,9 @@ void cleanup()
   }//print the scores to the file
   
   saveScores.flush();
-  saveScores.close();
+  saveScores.close
+  */
+  
+  String saves = (scores.get(i).place + " " + scores.get(i).name + " " + toString(scores.get(i).score));
+  
 }
