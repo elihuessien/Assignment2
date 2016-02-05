@@ -545,4 +545,14 @@ void cleanup()
   gapcounter = 0;
   gapManager = 1;
   platon = 0;
+  
+  PrintWriter saveScores = createWriter("scores.txt");
+  
+  for(int i = 0; i<scores.size(); i++ )
+  {
+    saveScores.println(scores.get(i).place + " " + scores.get(i).name + " " + scores.get(i).score + "\n");
+  }//print the scores to the file
+  
+  saveScores.flush();
+  saveScores.close();
 }
