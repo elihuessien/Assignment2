@@ -67,9 +67,9 @@ void draw()
       platOrganiser();
       
       stroke(0);
+      player.render();
       player.update();
       landCheck();
-      player.render();
     }
   }
   
