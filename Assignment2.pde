@@ -567,17 +567,22 @@ void cleanup()
   gapManager = 1;
   platon = 0;
   
-  /*
-  PrintWriter saveScores = createWriter("scores.txt");
-  
-  for(int i = 0; i<scores.size(); i++ )
+  ArrayList<String> saves = new ArrayList<String>();
+ //load scores into strings
+  for(Score s:scores)
   {
-    saveScores.println(scores.get(i).place + " " + scores.get(i).name + " " + scores.get(i).score + "\n");
-  }//print the scores to the file
+    String scorelist = (s.place + " " + s.name + " " + str(s.score));
+    saves.add(scorelist);
+  }
+  
+  
+  PrintWriter saveScores = createWriter("data/scores.txt");
+  //print strings to the data file
+  for(int i = 0; i<saves.size(); i++ )
+  {
+    saveScores.println(saves.get(i));
+  }
   
   saveScores.flush();
-  saveScores.close;
-  
-  String saves = (scores.get(i).place + " " + scores.get(i).name + " " + toString(scores.get(i).score));
-  */
+  saveScores.close();
 }
