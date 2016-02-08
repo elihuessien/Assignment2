@@ -172,10 +172,40 @@ void mousePressed()
         menu = 1;
       }
     }//end Hard button if
+    
   }
   
   if(menu == 1)
   {
+    /*
+    //play option
+    if(mouseX > width/2-45 && mouseX < width/2+45)
+    {
+      if(mouseY > height/2-30 && mouseY < height/2-10)
+      {
+        menu = 2;
+      }
+    }
+    
+    
+    //instructions option
+    if(mouseX > width/2-45 && mouseX < width/2+45)
+    {
+      if(mouseY > height/2-10 && mouseY < height/2+10)
+      {
+        menu = 3;
+      }
+    }
+    
+    //high scores option
+    if(mouseX > width/2-45 && mouseX < width/2+45)
+    {
+      if(mouseY > height/2+10 && mouseY < height/2+30)
+      {
+        menu = 4;
+      }
+    }
+    */
     //level select menu botton
     if(mouseX>100 && mouseX<150)
     {
@@ -280,8 +310,43 @@ void mainMenu()
     fill(255);
     background(0);
     text("Jump!", width/2, height/2-100);
-    text("1: Play", width/2, height/2-20);
+    
+    fill(0);
+    rect(width/2-45, height/2-30, 90, 20);
+    fill(255);
+    if(mouseX > width/2-45 && mouseX < width/2+45)
+    {
+      if(mouseY > height/2-30 && mouseY < height/2-10)
+      {
+        fill(0, 255, 255);
+      }
+    }
+    text("1: Play", width/2, height/2 - 20);
+    
+    
+    fill(0);
+    rect(width/2-45, height/2-10, 90, 20);
+    fill(255);
+    if(mouseX > width/2-45 && mouseX < width/2+45)
+    {
+      if(mouseY > height/2-10 && mouseY < height/2+10)
+      {
+        fill(0, 255, 255);
+      }
+    }
     text("2: Instructions", width/2, height/2);
+    
+    
+    fill(0);
+    rect(width/2-45, height/2+10, 90, 20);
+    fill(255);
+    if(mouseX > width/2-45 && mouseX < width/2+45)
+    {
+      if(mouseY > height/2+10 && mouseY < height/2+30)
+      {
+        fill(0, 255, 255);
+      }
+    }
     text("3: Highcores", width/2, height/2+20);
     
     fill(255);
