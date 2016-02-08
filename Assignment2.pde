@@ -5,6 +5,7 @@ void setup()
   loadScores();
 }
 int menu = 0;
+int save = 0;
 int level = 0;
 String name = "";
 boolean init = true;
@@ -52,7 +53,6 @@ void draw()
   
   if(init)
   {
-    cleanup();
     create();
   }
   
@@ -60,6 +60,7 @@ void draw()
   {
     if(named)
     {
+      save = 1;
       //game
       fill(255);
       stroke(255);
@@ -349,6 +350,12 @@ void mainMenu()
     fill(255);
     rect(100, height-100, 50, 20);
     fill(0);
+    
+    if(save == 1)
+    {
+      cleanup();
+      save = 0;
+    }
   }
   
   if(menu > 2)
