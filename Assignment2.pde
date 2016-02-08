@@ -97,11 +97,28 @@ void keyPressed()
     }
     else
     {
+      //inserting name with max character limit
       if( (((key>='A')&&(key<='Z')) || ((key>='a')&&(key<='z')) || ((key>='0')&&(key<='9'))) && name.length() < 10 )
       {
          name += key;
       }
       
+      //enabling backspace
+      if (keyCode == BACKSPACE) 
+      {
+        if (myText.length() > 0) 
+        {
+          myText = myText.substring(0, myText.length()-1);
+        }
+      }
+      
+      //Delete button
+      if (keyCode == DELETE) 
+      {
+        myText = "";
+      }
+      
+      //enter button
       if( (key==ENTER) || (key==RETURN) ) 
       {
         named = true;
