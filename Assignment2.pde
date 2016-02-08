@@ -50,6 +50,7 @@ void create()
 void draw()
 {
   background(0);
+  stroke(255);
   
   if(init)
   {
@@ -216,24 +217,30 @@ void mousePressed()
     }
   }
   
-  if(menu > 2)
+  if(menu > 1)
   {
-    //menu botton
-    if(mouseX>100 && mouseX<150)
+    if(named == false || menu > 2)
     {
-      if(mouseY>height-100 && mouseY<height-(100-20))
+      //menu botton
+      if(mouseX>100 && mouseX<150)
       {
-        menu = 1;
+        if(mouseY>height-100 && mouseY<height-(100-20))
+        {
+          menu = 1;
+        }
       }
     }
     
-    //play botton
-    if(mouseX>width-100 && mouseX<width-(50))
+    if(menu > 2)
     {
-      if(mouseY>height-100 && mouseY<height-(100-20))
+      //play botton
+      if(mouseX>width-100 && mouseX<width-(50))
       {
-        init = true;
-        menu = 2;
+        if(mouseY>height-100 && mouseY<height-(100-20))
+        {
+          init = true;
+          menu = 2;
+        }
       }
     }
   }
@@ -423,31 +430,37 @@ void mainMenu()
     }
   }
   
-  if(menu > 2)
+  if(menu > 1)
   {
-    fill(255);
-    rect(100, height-100, 50, 20);
-    fill(0);
-    if(mouseX>100 && mouseX<150)
+    if(named == false || menu > 2)
     {
-      if(mouseY>height-100 && mouseY<height-(100-20))
+      fill(255);
+      rect(100, height-100, 50, 20);
+      fill(0);
+      if(mouseX>100 && mouseX<150)
       {
-        fill(0, 255, 255);
+        if(mouseY>height-100 && mouseY<height-(100-20))
+        {
+          fill(0, 255, 255);
+        }
       }
+      text("Menu", 125, height-90);
     }
-    text("Menu", 125, height-90);
     
-    fill(255);
-    rect(width-100, height-100, 50, 20);
-    fill(0);
-    if(mouseX>width-100 && mouseX<width-(50))
+    if(menu > 2)
     {
-      if(mouseY>height-100 && mouseY<height-(100-20))
+      fill(255);
+      rect(width-100, height-100, 50, 20);
+      fill(0);
+      if(mouseX>width-100 && mouseX<width-(50))
       {
-        fill(0, 255, 255);
+        if(mouseY>height-100 && mouseY<height-(100-20))
+        {
+          fill(0, 255, 255);
+        }
       }
+      text("Play", width-75, height-90);
     }
-    text("Play", width-75, height-90);
   }
 }
 
