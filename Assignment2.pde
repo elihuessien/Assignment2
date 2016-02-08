@@ -401,10 +401,21 @@ void platOrganiser()
   //delete used platforms
   for(int i=0; i<size; i++)
   {
-    if(platforms.get(i).pos.x < 0)
+    if(level == 0)
     {
-      delete = i;
-      player.score++;
+      if((platforms.get(i).pos.x + platforms.get(i).w/2)< 0)
+      {
+        delete = i;
+        player.score++;
+      }
+    }
+    else
+    {
+      if((platforms.get(i).pos.x + platforms.get(i).w/2)< 0)
+      {
+        delete = i;
+        player.score++;
+      }
     }
   }
   if(delete > -1)
@@ -421,6 +432,13 @@ void platVariables()
     if(gapManager==0)
     {
       gap = int(random(1,2.1));
+      
+      //easy level no gaps
+      if(level == 0)
+      {
+        gap = 1;
+      }
+      
       if(gap == 2)
       {
         gapManager = 1;
@@ -456,7 +474,21 @@ void platVariables()
   
   //wait for next platform
   gapcounter++;
-  if(gapcounter > (15)*gap)
+  
+  int spacing = 23;
+  
+  if(level == 1)
+  {
+    spacing = 19;
+  }
+  
+  if(level == 2)
+  {
+    spacing = 15;
+  }
+  
+  
+  if(gapcounter > (spacing)*gap)
   {
     gapcounter = 0;
   }
