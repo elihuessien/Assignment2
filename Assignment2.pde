@@ -34,11 +34,6 @@ void loadScores()
     scores.add(score);
     scoreNum++;
   }
-  
-  for(int i = 0; i<scores.size(); i++ )
-  {
-    println(scores.get(i).place + " " + scores.get(i).name + " " +scores.get(i).score);
-  }
 }
 
 void create()
@@ -50,6 +45,7 @@ void create()
 void draw()
 {
   background(0);
+  stroke(255);
   
   if(init)
   {
@@ -177,9 +173,9 @@ void mousePressed()
   
   if(menu == 1)
   {
-    /*
+    
     //play option
-    if(mouseX > width/2-45 && mouseX < width/2+45)
+    if(mouseX > width/2-145 && mouseX < (width/2 - 145) + 90)
     {
       if(mouseY > height/2-30 && mouseY < height/2-10)
       {
@@ -189,23 +185,33 @@ void mousePressed()
     
     
     //instructions option
-    if(mouseX > width/2-45 && mouseX < width/2+45)
+    if(mouseX > width/2+100 && mouseX < width/2+190)
     {
-      if(mouseY > height/2-10 && mouseY < height/2+10)
+      if(mouseY > height/2-30 && mouseY < height/2-10)
       {
         menu = 3;
       }
     }
     
     //high scores option
-    if(mouseX > width/2-45 && mouseX < width/2+45)
+    if(mouseX > width/2-145 && mouseX < (width/2 - 145) + 90)
     {
       if(mouseY > height/2+10 && mouseY < height/2+30)
       {
         menu = 4;
       }
     }
-    */
+    
+    //quit function
+    if(mouseX > width/2+100 && mouseX < width/2+190)
+    {
+      if(mouseY > height/2+10 && mouseY < height/2+30)
+      {
+        exit();
+      }
+    }
+    
+    
     //level select menu botton
     if(mouseX>100 && mouseX<150)
     {
@@ -312,42 +318,54 @@ void mainMenu()
     text("Jump!", width/2, height/2-100);
     
     fill(0);
-    rect(width/2-45, height/2-30, 90, 20);
+    rect(width/2-145, height/2-30, 90, 20);
     fill(255);
-    if(mouseX > width/2-45 && mouseX < width/2+45)
+    if(mouseX > width/2-145 && mouseX < (width/2 - 145) + 90)
     {
       if(mouseY > height/2-30 && mouseY < height/2-10)
       {
         fill(0, 255, 255);
       }
     }
-    text("1: Play", width/2, height/2 - 20);
+    text("1: Play", width/2-100, height/2 - 20);
     
     
     fill(0);
-    rect(width/2-45, height/2-10, 90, 20);
+    rect(width/2+100, height/2-30, 90, 20);
     fill(255);
-    if(mouseX > width/2-45 && mouseX < width/2+45)
+    if(mouseX > width/2+100 && mouseX < width/2+190)
     {
-      if(mouseY > height/2-10 && mouseY < height/2+10)
+      if(mouseY > height/2-30 && mouseY < height/2-10)
       {
         fill(0, 255, 255);
       }
     }
-    text("2: Instructions", width/2, height/2);
+    text("2: Instructions", width/2 + 145, height/2-20);
     
     
     fill(0);
-    rect(width/2-45, height/2+10, 90, 20);
+    rect(width/2-145, height/2+10, 90, 20);
     fill(255);
-    if(mouseX > width/2-45 && mouseX < width/2+45)
+    if(mouseX > width/2-145 && mouseX < (width/2 - 145) + 90)
     {
       if(mouseY > height/2+10 && mouseY < height/2+30)
       {
         fill(0, 255, 255);
       }
     }
-    text("3: Highcores", width/2, height/2+20);
+    text("3: Highcores", width/2-100, height/2+20);
+    
+    fill(0);
+    rect(width/2+100, height/2+10, 90, 20);
+    fill(255);
+    if(mouseX > width/2+100 && mouseX < width/2+190)
+    {
+      if(mouseY > height/2+10 && mouseY < height/2+30)
+      {
+        fill(0, 255, 255);
+      }
+    }
+    text("4: Quit", width/2 + 145, height/2+20);
     
     fill(255);
     rect(100, height-100, 50, 20);
