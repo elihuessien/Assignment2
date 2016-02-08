@@ -54,6 +54,7 @@ void draw()
   
   if(menu == 2)
   {
+    println(player.j);
     if(named)
     {
       save = 1;
@@ -175,7 +176,7 @@ void mousePressed()
   {
     
     //play option
-    if(mouseX > width/2-145 && mouseX < (width/2 - 145) + 90)
+    if(mouseX > width/2-190 && mouseX < width/2 - 100)
     {
       if(mouseY > height/2-30 && mouseY < height/2-10)
       {
@@ -194,7 +195,7 @@ void mousePressed()
     }
     
     //high scores option
-    if(mouseX > width/2-145 && mouseX < (width/2 - 145) + 90)
+    if(mouseX > width/2-190 && mouseX < width/2 - 100)
     {
       if(mouseY > height/2+10 && mouseY < height/2+30)
       {
@@ -222,24 +223,30 @@ void mousePressed()
     }
   }
   
-  if(menu > 2)
+  if(menu > 1)
   {
-    //menu botton
-    if(mouseX>100 && mouseX<150)
+    if(named == false)
     {
-      if(mouseY>height-100 && mouseY<height-(100-20))
+      //menu botton
+      if(mouseX>100 && mouseX<150)
       {
-        menu = 1;
+        if(mouseY>height-100 && mouseY<height-(100-20))
+        {
+          menu = 1;
+        }
       }
     }
     
-    //play botton
-    if(mouseX>width-100 && mouseX<width-(50))
+    if(menu > 2)
     {
-      if(mouseY>height-100 && mouseY<height-(100-20))
+      //play botton
+      if(mouseX>width-100 && mouseX<width-(50))
       {
-        init = true;
-        menu = 2;
+        if(mouseY>height-100 && mouseY<height-(100-20))
+        {
+          init = true;
+          menu = 2;
+        }
       }
     }
   }
@@ -318,16 +325,16 @@ void mainMenu()
     text("Jump!", width/2, height/2-100);
     
     fill(0);
-    rect(width/2-145, height/2-30, 90, 20);
+    rect(width/2-190, height/2-30, 90, 20);
     fill(255);
-    if(mouseX > width/2-145 && mouseX < (width/2 - 145) + 90)
+    if(mouseX > width/2-190 && mouseX < width/2 - 100)
     {
       if(mouseY > height/2-30 && mouseY < height/2-10)
       {
         fill(0, 255, 255);
       }
     }
-    text("1: Play", width/2-100, height/2 - 20);
+    text("Play", width/2-145, height/2 - 20);
     
     
     fill(0);
@@ -340,20 +347,20 @@ void mainMenu()
         fill(0, 255, 255);
       }
     }
-    text("2: Instructions", width/2 + 145, height/2-20);
+    text("Instructions", width/2 + 145, height/2-20);
     
     
     fill(0);
-    rect(width/2-145, height/2+10, 90, 20);
+    rect(width/2-190, height/2+10, 90, 20);
     fill(255);
-    if(mouseX > width/2-145 && mouseX < (width/2 - 145) + 90)
+    if(mouseX > width/2-190 && mouseX < width/2 - 100)
     {
       if(mouseY > height/2+10 && mouseY < height/2+30)
       {
         fill(0, 255, 255);
       }
     }
-    text("3: Highcores", width/2-100, height/2+20);
+    text("Highcores", width/2-145, height/2+20);
     
     fill(0);
     rect(width/2+100, height/2+10, 90, 20);
@@ -365,7 +372,7 @@ void mainMenu()
         fill(0, 255, 255);
       }
     }
-    text("4: Quit", width/2 + 145, height/2+20);
+    text("Quit", width/2 + 145, height/2+20);
     
     fill(255);
     rect(100, height-100, 50, 20);
@@ -441,31 +448,37 @@ void mainMenu()
     }
   }
   
-  if(menu > 2)
+  if(menu > 1)
   {
-    fill(255);
-    rect(100, height-100, 50, 20);
-    fill(0);
-    if(mouseX>100 && mouseX<150)
+    if(named == false)
     {
-      if(mouseY>height-100 && mouseY<height-(100-20))
+      fill(255);
+      rect(100, height-100, 50, 20);
+      fill(0);
+      if(mouseX>100 && mouseX<150)
       {
-        fill(0, 255, 255);
+        if(mouseY>height-100 && mouseY<height-(100-20))
+        {
+          fill(0, 255, 255);
+        }
       }
+      text("Menu", 125, height-90);
     }
-    text("Menu", 125, height-90);
     
-    fill(255);
-    rect(width-100, height-100, 50, 20);
-    fill(0);
-    if(mouseX>width-100 && mouseX<width-(50))
+    if(menu > 2)
     {
-      if(mouseY>height-100 && mouseY<height-(100-20))
+      fill(255);
+      rect(width-100, height-100, 50, 20);
+      fill(0);
+      if(mouseX>width-100 && mouseX<width-(50))
       {
-        fill(0, 255, 255);
+        if(mouseY>height-100 && mouseY<height-(100-20))
+        {
+          fill(0, 255, 255);
+        }
       }
+      text("Play", width-75, height-90);
     }
-    text("Play", width-75, height-90);
   }
 }
 
@@ -587,20 +600,10 @@ void landCheck()
   {
     if(player.pos.x > platforms.get(i).pos.x && player.pos.x <= (platforms.get(i).pos.x + platforms.get(i).w))
     {
-      if(player.pos.y >= (platforms.get(i).pos.y - player.crw/2) && player.pos.y < (platforms.get(i).pos.y)+ platforms.get(i).h)
+      if(player.pos.y >= (platforms.get(i).pos.y - player.crw/2) && player.pos.y < (platforms.get(i).pos.y)+ platforms.get(i).h + player.gravity)
       {
         num = 0;
         j = i;
-      }
-      
-      //gravitational error margin
-      if(player.gravity > 20)
-      {
-        if(player.pos.y >= (platforms.get(i).pos.y - player.crw/2) && player.pos.y < (platforms.get(i).pos.y) + platforms.get(i).h + 10)
-        {
-          num = 0;
-          j = i;
-        }
       }
     }
   }
