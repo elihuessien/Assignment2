@@ -106,23 +106,27 @@ void keyPressed()
       //enabling backspace
       if (keyCode == BACKSPACE) 
       {
-        if (myText.length() > 0) 
+        if (name.length() > 0) 
         {
-          myText = myText.substring(0, myText.length()-1);
+          name = name.substring(0, name.length()-1);
         }
       }
       
       //Delete button
       if (keyCode == DELETE) 
       {
-        myText = "";
+        name = "";
       }
       
       //enter button
       if( (key==ENTER) || (key==RETURN) ) 
       {
-        named = true;
-        player.name = name;
+        //ensure name is inputed
+        if (name.length() > 0) 
+        {
+          named = true;
+          player.name = name;
+        }
       }
     }
   }
@@ -572,9 +576,8 @@ void cleanup()
   }//print the scores to the file
   
   saveScores.flush();
-  saveScores.close
-  */
+  saveScores.close;
   
   String saves = (scores.get(i).place + " " + scores.get(i).name + " " + toString(scores.get(i).score));
-  
+  */
 }
