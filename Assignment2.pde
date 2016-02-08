@@ -3,6 +3,8 @@ void setup()
   size(800, 500);
   textAlign(CENTER, CENTER);
   loadScores();
+  
+  animation = new ScreenChange();
 }
 int menu = 0;
 int save = 0;
@@ -17,6 +19,7 @@ int gapManager = 1;
 int platchg;
 int platon = 0;
 Ball player;
+ScreenChange animation;
 ArrayList<Platform> platforms = new ArrayList<Platform>();
 int size = 0;
 
@@ -47,9 +50,21 @@ void create()
   init = false;
 }
 
+void change()
+{
+  animation.k = 0;
+  animation.j = 0;
+}
 void draw()
 {
-  background(0);
+  if(menu != 2)
+  {
+    animation.update();
+  }
+  else
+  {
+    change();
+  }
   stroke(255);
   
   if(init)
@@ -82,164 +97,175 @@ void draw()
 
 void keyPressed()
 { 
-  //game option 1
-  if(menu == 2)
+  if(animation.k == 1)
   {
-    if(named)
+    //game option 1
+    if(menu == 2)
     {
-      //jump
-      if( key == ' ')
+      if(named)
       {
-        if(player.j == 0 && start)
+        //jump
+        if( key == ' ')
         {
-          player.j = 1;
-          player.gravity = 0;
+          if(player.j == 0 && start)
+          {
+            player.j = 1;
+            player.gravity = 0;
+          }
+        }
+      }
+      else
+      {
+        //inserting name with max character limit
+        if( (((key>='A')&&(key<='Z')) || ((key>='a')&&(key<='z')) || ((key>='0')&&(key<='9'))) && name.length() < 10 )
+        {
+           name += key;
+        }
+        
+        //enabling backspace
+        if (keyCode == BACKSPACE) 
+        {
+          if (name.length() > 0) 
+          {
+            name = name.substring(0, name.length()-1);
+          }
+        }
+        
+        //Delete button
+        if (keyCode == DELETE) 
+        {
+          name = "";
+        }
+        
+        //enter button
+        if( (key==ENTER) || (key==RETURN) ) 
+        {
+          //ensure name is inputed
+          if (name.length() > 0) 
+          {
+            named = true;
+            player.name = name;
+          }
         }
       }
     }
     else
     {
-      //inserting name with max character limit
-      if( (((key>='A')&&(key<='Z')) || ((key>='a')&&(key<='z')) || ((key>='0')&&(key<='9'))) && name.length() < 10 )
-      {
-         name += key;
-      }
-      
-      //enabling backspace
-      if (keyCode == BACKSPACE) 
-      {
-        if (name.length() > 0) 
-        {
-          name = name.substring(0, name.length()-1);
-        }
-      }
-      
-      //Delete button
-      if (keyCode == DELETE) 
-      {
-        name = "";
-      }
-      
-      //enter button
-      if( (key==ENTER) || (key==RETURN) ) 
-      {
-        //ensure name is inputed
-        if (name.length() > 0) 
-        {
-          named = true;
-          player.name = name;
-        }
-      }
+      menuOptions();
     }
-  }
-  else
-  {
-    menuOptions();
   }
 }
 
 void mousePressed()
 {
-  if(menu == 0)
+  if(animation.k == 1)
   {
-    if(mouseX > width/2-25 && mouseX < width/2+25)
+    if(menu == 0)
     {
-      if(mouseY > height/2-30 && mouseY < height/2-10)
+      if(mouseX > width/2-25 && mouseX < width/2+25)
       {
-        init = true;
-        level = 0;
-        menu = 1;
-      }
-    }//end easy button if
-    
-    
-    if(mouseX > width/2-25 && mouseX < width/2+25)
-    {
-      if(mouseY > height/2-10 && mouseY < height/2+10)
+        if(mouseY > height/2-30 && mouseY < height/2-10)
+        {
+          init = true;
+          level = 0;
+          menu = 1;
+          change();
+        }
+      }//end easy button if
+      
+      
+      if(mouseX > width/2-25 && mouseX < width/2+25)
       {
-        init = true;
-        level = 1;
-        menu = 1;
-      }
-    }//end medium button if
-    
-    
-    if(mouseX > width/2-25 && mouseX < width/2+25)
-    {
-      if(mouseY > height/2+10 && mouseY < height/2+30)
+        if(mouseY > height/2-10 && mouseY < height/2+10)
+        {
+          init = true;
+          level = 1;
+          menu = 1;
+          change();
+        }
+      }//end medium button if
+      
+      
+      if(mouseX > width/2-25 && mouseX < width/2+25)
       {
-        init = true;
-        level = 2;
-        menu = 1;
-      }
-    }//end Hard button if
-    
-  }
-  
-  if(menu == 1)
-  {
-    /*
-    //play option
-    if(mouseX > width/2-45 && mouseX < width/2+45)
-    {
-      if(mouseY > height/2-30 && mouseY < height/2-10)
-      {
-        menu = 2;
-      }
+        if(mouseY > height/2+10 && mouseY < height/2+30)
+        {
+          init = true;
+          level = 2;
+          menu = 1;
+          change();
+        }
+      }//end Hard button if
+      
     }
     
-    
-    //instructions option
-    if(mouseX > width/2-45 && mouseX < width/2+45)
+    if(menu == 1)
     {
-      if(mouseY > height/2-10 && mouseY < height/2+10)
+      /*
+      //play option
+      if(mouseX > width/2-45 && mouseX < width/2+45)
       {
-        menu = 3;
+        if(mouseY > height/2-30 && mouseY < height/2-10)
+        {
+          menu = 2;
+        }
       }
-    }
-    
-    //high scores option
-    if(mouseX > width/2-45 && mouseX < width/2+45)
-    {
-      if(mouseY > height/2+10 && mouseY < height/2+30)
+      
+      
+      //instructions option
+      if(mouseX > width/2-45 && mouseX < width/2+45)
       {
-        menu = 4;
+        if(mouseY > height/2-10 && mouseY < height/2+10)
+        {
+          menu = 3;
+        }
       }
-    }
-    */
-    //level select menu botton
-    if(mouseX>100 && mouseX<150)
-    {
-      if(mouseY>height-100 && mouseY<height-(100-20))
+      
+      //high scores option
+      if(mouseX > width/2-45 && mouseX < width/2+45)
       {
-        menu = 0;
+        if(mouseY > height/2+10 && mouseY < height/2+30)
+        {
+          menu = 4;
+        }
       }
-    }
-  }
-  
-  if(menu > 1)
-  {
-    if(named == false || menu > 2)
-    {
-      //menu botton
+      */
+      //level select menu botton
       if(mouseX>100 && mouseX<150)
       {
         if(mouseY>height-100 && mouseY<height-(100-20))
         {
-          menu = 1;
+          menu = 0;
+          change();
         }
       }
     }
     
-    if(menu > 2)
+    if(menu > 1)
     {
-      //play botton
-      if(mouseX>width-100 && mouseX<width-(50))
+      if(named == false || menu > 2)
       {
-        if(mouseY>height-100 && mouseY<height-(100-20))
+        //menu botton
+        if(mouseX>100 && mouseX<150)
         {
-          init = true;
-          menu = 2;
+          if(mouseY>height-100 && mouseY<height-(100-20))
+          {
+            menu = 1;
+            change();
+          }
+        }
+      }
+      
+      if(menu > 2)
+      {
+        //play botton
+        if(mouseX>width-100 && mouseX<width-(50))
+        {
+          if(mouseY>height-100 && mouseY<height-(100-20))
+          {
+            init = true;
+            menu = 2;
+          }
         }
       }
     }
@@ -252,16 +278,19 @@ void menuOptions()
   {
     init = true;
     menu = 2;
+    change();
   }
   
   if( key == '2')
   {
     menu = 3;
+    change();
   }
   
   if( key == '3')
   {
     menu = 4;
+    change();
   }
 }
 

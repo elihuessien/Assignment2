@@ -1,31 +1,40 @@
-class Screenchange
+class ScreenChange
 {
   //growth variable
   float j;
+  int colorChange;
   int k;
   int dir;
   
-  Screenchange()
+  ScreenChange()
   {
     j=0;
     k=1;
     dir=0;
+    colorChange = 1;
   }
   
   void update()
   {
     if(k==0)
     {
-      if(j <= width*3)
+      if(j <= width*4)
       {
-        background(0);
-        fill(0, 204, 255); 
+        if(colorChange == 0)
+        {
+          background(0);
+          fill(102, 102, 102);
+        }
+        else
+        {
+          background(102, 102, 102);
+          fill(0);
+        }
         render();
         j+=30;
       }
       else
       {
-        j=0;
         k=1;
         dir++;
       }
@@ -58,3 +67,4 @@ class Screenchange
       dir=0;
     }
   }
+}
