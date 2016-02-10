@@ -3,7 +3,11 @@ void setup()
   size(800, 500);
   textAlign(CENTER, CENTER);
   loadScores();
+  font = loadFont("AgencyFB-Bold-48.vlw");
 }
+
+PFont font;
+
 int menu = 0;
 int save = 0;
 int level = 0;
@@ -44,6 +48,7 @@ void create()
 
 void draw()
 {
+  textFont(font, 18);
   background(0);
   stroke(255);
   
@@ -274,12 +279,18 @@ void menuOptions()
 
 void mainMenu()
 {
-  //Level Select
-  if(menu == 0)
+  
+  if(menu < 2 || (menu > 2 && menu < 5))
   {
     fill(255);
     stroke(255);
+    textFont(font, 28);
     text("Jump!", width/2, height/2-100);
+    textFont(font, 18);
+  }
+  //Level Select
+  if(menu == 0)
+  {
     fill(0);
     rect(width/2-25, height/2-30, 50, 20);
     fill(255);
@@ -321,10 +332,6 @@ void mainMenu()
   //opening
   if(menu == 1)
   {
-    fill(255);
-    background(0);
-    text("Jump!", width/2, height/2-100);
-    
     fill(0);
     rect(width/2-190, height/2-30, 90, 20);
     fill(255);
@@ -405,9 +412,6 @@ void mainMenu()
   //instructions
   if(menu == 3)
   {
-    background(0);
-    fill(255);
-    text("Jump!", width/2, height/2-100);
     text("Press spacebar to jump", width/2, height/2 - 20);
     text("Don't fall!", width/2, height/2);
   }
@@ -416,9 +420,6 @@ void mainMenu()
   //scores menu
   if( menu == 4)
   {
-    fill(255);
-    text("Jump!", width/2, height/2-100);
-    
     textAlign(LEFT, CENTER);
     int j = 0;
     for(int i = level; i<scores.size(); i+=3 )
@@ -449,7 +450,7 @@ void mainMenu()
     
     if( position != "")
     {
-      text("You came " + position + "!", width/2, height/2 + 20);
+      text("You came " + position + "!", width/2, height/2 + 40);
     }
     
     
