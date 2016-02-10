@@ -4,6 +4,7 @@ void setup()
   textAlign(CENTER, CENTER);
   loadScores();
 }
+//program variables
 int menu = 0;
 int save = 0;
 int level = 0;
@@ -11,20 +12,26 @@ String name = "";
 boolean init = true;
 boolean start = false;
 boolean named = false;
+
+//platform variables
 int gap;
 int gapcounter = 0;
 int gapManager = 1;
 int platchg;
 int platon = 0;
+
+//object variables
 Ball player;
 ArrayList<Platform> platforms = new ArrayList<Platform>();
-int size = 0;
-
-int scoreNum = 0;
 ArrayList<Score> scores = new ArrayList<Score>();
+int size = 0;
+int scoreNum = 0;
+
+
 
 void loadScores()
 {
+  //loading scores
   String[] lines = loadStrings("scores.txt");
  
   for(String line:lines)
@@ -32,15 +39,18 @@ void loadScores()
     String[] elements = line.split(" "); 
     Score score = new Score(elements[0], elements[1], parseInt(elements[2]));
     scores.add(score);
+    //tracking scores
     scoreNum++;
   }
 }
 
+//create new player
 void create()
 {
   player = new Ball();
   init = false;
 }
+
 
 void draw()
 {
@@ -49,12 +59,12 @@ void draw()
   
   if(init)
   {
+    //called once at start
     create();
   }
   
   if(menu == 2)
   {
-    println(player.j);
     if(named)
     {
       save = 1;
@@ -73,12 +83,13 @@ void draw()
     }
   }
   
+  //contains all menus
   mainMenu();
 }
 
 void keyPressed()
 { 
-  //game option 1
+  //main game controls
   if(menu == 2)
   {
     if(named)
@@ -95,6 +106,7 @@ void keyPressed()
     }
     else
     {
+      //get name
       //inserting name with max character limit
       if( (((key>='A')&&(key<='Z')) || ((key>='a')&&(key<='z')) || ((key>='0')&&(key<='9'))) && name.length() < 10 )
       {
@@ -130,9 +142,33 @@ void keyPressed()
   }
   else
   {
+    //processes choices
     menuOptions();
   }
 }
+
+
+
+void menuOptions()
+{
+  if( key == '1')
+  {
+    init = true;
+    menu = 2;
+  }
+  
+  if( key == '2')
+  {
+    menu = 3;
+  }
+  
+  if( key == '3')
+  {
+    menu = 4;
+  }
+}
+
+
 
 void mousePressed()
 {
@@ -252,24 +288,7 @@ void mousePressed()
   }
 }
 
-void menuOptions()
-{
-  if( key == '1')
-  {
-    init = true;
-    menu = 2;
-  }
-  
-  if( key == '2')
-  {
-    menu = 3;
-  }
-  
-  if( key == '3')
-  {
-    menu = 4;
-  }
-}
+
 
 void mainMenu()
 {
@@ -484,43 +503,6 @@ void mainMenu()
 
 
 
-void platOrganiser()
-{
-  for(Platform p: platforms)
-  {
-    p.update();
-    p.render();
-  }
-  
-  int delete = -1;
-  
-  //delete used platforms
-  for(int i=0; i<size; i++)
-  {
-    if(level == 0)
-    {
-      if((platforms.get(i).pos.x + platforms.get(i).w/2)< 0)
-      {
-        delete = i;
-        player.score++;
-      }
-    }
-    else
-    {
-      if((platforms.get(i).pos.x + platforms.get(i).w/2)< 0)
-      {
-        delete = i;
-        player.score++;
-      }
-    }
-  }
-  if(delete > -1)
-  {
-    platforms.remove(delete);
-    size--;
-  }
-}
-
 void platVariables()
 {
   if(gapcounter == 0)
@@ -590,6 +572,49 @@ void platVariables()
   }
 }
 
+
+
+//keep track of and delete platforms
+void platOrganiser()
+{
+  for(Platform p: platforms)
+  {
+    p.update();
+    p.render();
+  }
+  
+  int delete = -1;
+  
+  //delete used platforms
+  for(int i=0; i<size; i++)
+  {
+    if(level == 0)
+    {
+      if((platforms.get(i).pos.x + platforms.get(i).w/2)< 0)
+      {
+        delete = i;
+        player.score++;
+      }
+    }
+    else
+    {
+      if((platforms.get(i).pos.x + platforms.get(i).w/2)< 0)
+      {
+        delete = i;
+        player.score++;
+      }
+    }
+  }
+  if(delete > -1)
+  {
+    platforms.remove(delete);
+    size--;
+  }
+}
+
+
+
+//check state of the player
 void landCheck()
 {
   int num = 1;
@@ -632,6 +657,9 @@ void landCheck()
   }
 }
 
+
+
+//organise scores
 void scorecheck()
 {
   //make a new score element
