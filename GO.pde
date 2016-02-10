@@ -1,7 +1,5 @@
 abstract class GO
 {
-  int w;
-  int j;
   PVector pos;
   PVector forward;
   

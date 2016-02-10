@@ -27,8 +27,6 @@ int size = 0;
 int scoreNum = 0;
 ArrayList<Score> scores = new ArrayList<Score>();
 
-ArrayList<GO> gameObjects = new ArrayList<GO>();
-
 void loadScores()
 {
   String[] lines = loadStrings("scores.txt");
@@ -53,40 +51,6 @@ void draw()
   textFont(font, 18);
   background(0);
   stroke(255);
-  
-  if(menu == 1)
-  {
-    animate();
-    for(int i = gameObjects.size() - 1; i >= 0; i --)
-    {
-      GO b = gameObjects.get(i);
-      b.update();
-      b.render();
-      
-      if(b instanceof AniSpark)
-      {
-        if(b.j == 1)
-        {
-          gameObjects.remove(b);
-        }
-      }
-      
-      if(b.pos.x > width || b.pos.x < 0)
-      {
-        gameObjects.remove(b);
-      }
-      if(b.pos.y > height || b.pos.y < 0)
-      {
-        
-      }
-    }
-    
-    println(gameObjects.size());
-  }
-  else
-  {
-    killanimation();
-  }
   
   if(init)
   {
@@ -293,58 +257,6 @@ void mousePressed()
     }
   }
 }
-
-
-void animate()
-{
-  int make = int(random(1, 50.1));
-  
-  if(gameObjects.size() > 10)
-  {
-    make = 2;
-  }
-  if(make == 1)
-  {
-    AniBall bl );
-    gameObjects.add(bl);
-   
-  }
-  
-  for(int i = gameObjects.size() - 1 ; i >= 0   ;i --)
- {
-    GO b = gameObjects.get(i);
-    if (b instanceof AniBall)
-    {
-      for(int j = gameObjects.size() - 1 ; j >= 0   ;j --)
-      {
-         GO p = gameObjects.get(j);
-         if (p instanceof AniBall) // Check the type of a object
-         {
-           // Bounding circle collisions
-           if(b.pos.dist(p.pos) < b.w)
-           {
-             // Do some casting
-             AniSpark poof = new AniSpark(b.pos.x, b.pos.y);
-             gameObjects.remove(b);
-             gameObjects.remove(p);
-           }
-         }
-       }
-    } 
-  }
-}
-
-
-void killanimation()
-{
-  int sz = gameObjects.size();
-  
-  for(int i=0; i < sz; i++)
-  {
-    gameObjects.remove(0);
-  }
-}
-
 
 void menuOptions()
 {
