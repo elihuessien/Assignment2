@@ -4,7 +4,6 @@ void setup()
   textAlign(CENTER, CENTER);
   loadScores();
 }
-//program variables
 int menu = 0;
 int save = 0;
 int level = 0;
@@ -12,26 +11,20 @@ String name = "";
 boolean init = true;
 boolean start = false;
 boolean named = false;
-
-//platform variables
 int gap;
 int gapcounter = 0;
 int gapManager = 1;
 int platchg;
 int platon = 0;
-
-//object variables
 Ball player;
 ArrayList<Platform> platforms = new ArrayList<Platform>();
-ArrayList<Score> scores = new ArrayList<Score>();
 int size = 0;
+
 int scoreNum = 0;
-
-
+ArrayList<Score> scores = new ArrayList<Score>();
 
 void loadScores()
 {
-  //loading scores
   String[] lines = loadStrings("scores.txt");
  
   for(String line:lines)
@@ -39,18 +32,15 @@ void loadScores()
     String[] elements = line.split(" "); 
     Score score = new Score(elements[0], elements[1], parseInt(elements[2]));
     scores.add(score);
-    //tracking scores
     scoreNum++;
   }
 }
 
-//create new player
 void create()
 {
   player = new Ball();
   init = false;
 }
-
 
 void draw()
 {
@@ -59,12 +49,12 @@ void draw()
   
   if(init)
   {
-    //called once at start
     create();
   }
   
   if(menu == 2)
   {
+    println(player.j);
     if(named)
     {
       save = 1;
@@ -83,13 +73,12 @@ void draw()
     }
   }
   
-  //contains all menus
   mainMenu();
 }
 
 void keyPressed()
 { 
-  //main game controls
+  //game option 1
   if(menu == 2)
   {
     if(named)
@@ -106,7 +95,6 @@ void keyPressed()
     }
     else
     {
-      //get name
       //inserting name with max character limit
       if( (((key>='A')&&(key<='Z')) || ((key>='a')&&(key<='z')) || ((key>='0')&&(key<='9'))) && name.length() < 10 )
       {
@@ -142,33 +130,9 @@ void keyPressed()
   }
   else
   {
-    //processes choices
     menuOptions();
   }
 }
-
-
-
-void menuOptions()
-{
-  if( key == '1')
-  {
-    init = true;
-    menu = 2;
-  }
-  
-  if( key == '2')
-  {
-    menu = 3;
-  }
-  
-  if( key == '3')
-  {
-    menu = 4;
-  }
-}
-
-
 
 void mousePressed()
 {
@@ -216,6 +180,7 @@ void mousePressed()
     {
       if(mouseY > height/2-30 && mouseY < height/2-10)
       {
+        init = true;
         menu = 2;
       }
     }
@@ -288,7 +253,24 @@ void mousePressed()
   }
 }
 
-
+void menuOptions()
+{
+  if( key == '1')
+  {
+    init = true;
+    menu = 2;
+  }
+  
+  if( key == '2')
+  {
+    menu = 3;
+  }
+  
+  if( key == '3')
+  {
+    menu = 4;
+  }
+}
 
 void mainMenu()
 {
@@ -451,12 +433,12 @@ void mainMenu()
   //game over menu
   if(menu == 5)
   {
-    String place = "";
+    String position = "";
     for(int i = level; i < scores.size(); i+=3)
     {
-      if(player.name == scores.get(i).name)
+      if( (player.name == scores.get(i).name) && (player.score == scores.get(i).score))
       {
-        place = scores.get(i).place;
+        position = scores.get(i).place;
       }
     }
     
@@ -465,9 +447,9 @@ void mainMenu()
     text("Game over :(", width/2, height/2-50);
     text("Your score is: " + player.score, width/2, height/2);
     
-    if( place != "")
+    if( position != "")
     {
-      text("You came " + place + "!", width/2, height/2 + 20);
+      text("You came " + position + "!", width/2, height/2 + 20);
     }
     
     
@@ -514,6 +496,26 @@ void mainMenu()
       text("Play", width-75, height-90);
     }
   }
+  
+  if(menu == 1 || menu > 2)
+    {
+      String lv = "";
+      if(level == 0)
+      {
+        lv = "Easy";
+      }
+      if(level == 1)
+      {
+        lv = "Medium";
+      }
+      if(level == 2)
+      {
+        lv = "Hard";
+      }
+      fill(255);
+      stroke(255);
+      text(lv, 100, 50);
+    }
 }
 
 
