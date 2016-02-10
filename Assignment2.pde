@@ -80,6 +80,8 @@ void draw()
         
       }
     }
+    
+    println(gameObjects.size());
   }
   else
   {
@@ -297,19 +299,15 @@ void animate()
 {
   int make = int(random(1, 50.1));
   
+  if(gameObjects.size() > 10)
+  {
+    make = 2;
+  }
   if(make == 1)
   {
-    int type = int(random(-0.2, 1.1));
-    if(type == 0)
-    {
-      AniBall bl = new AniBall();
-      gameObjects.add(bl);
-    }
-    else
-    {
-      AniPlatform pl = new AniPlatform();
-      gameObjects.add(pl);
-    }
+    AniBall bl );
+    gameObjects.add(bl);
+   
   }
   
   for(int i = gameObjects.size() - 1 ; i >= 0   ;i --)
@@ -320,18 +318,15 @@ void animate()
       for(int j = gameObjects.size() - 1 ; j >= 0   ;j --)
       {
          GO p = gameObjects.get(j);
-         if (p instanceof AniPlatform) // Check the type of a object
+         if (p instanceof AniBall) // Check the type of a object
          {
            // Bounding circle collisions
-           if(b.pos.x > p.pos.x && b.pos.x < (p.pos.x + p.w))
+           if(b.pos.dist(p.pos) < b.w)
            {
-             if(b.pos.y > p.pos.y && b.pos.y < p.pos.y + p.h)
-             {
-               // Do some casting
-               AniSpark poof = new AniSpark(b.pos.x, b.pos.y);
-               gameObjects.remove(b);
-               gameObjects.remove(p);
-             }
+             // Do some casting
+             AniSpark poof = new AniSpark(b.pos.x, b.pos.y);
+             gameObjects.remove(b);
+             gameObjects.remove(p);
            }
          }
        }

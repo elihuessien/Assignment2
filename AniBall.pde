@@ -4,7 +4,7 @@ class AniBall extends GO
   
   AniBall()
   {
-    crw = 10;
+    w = 30;
     pos.x = int(random(100, 700));
     pos.y = int(random(100, 400));
     boolean j = true;
