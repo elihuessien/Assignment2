@@ -451,10 +451,25 @@ void mainMenu()
   //game over menu
   if(menu == 5)
   {
+    String place = "";
+    for(int i = level; i < scores.size(); i+=3)
+    {
+      if(player.name == scores.get(i).name)
+      {
+        place = scores.get(i).place;
+      }
+    }
+    
     background(0);
     fill(255);
     text("Game over :(", width/2, height/2-50);
     text("Your score is: " + player.score, width/2, height/2);
+    
+    if( place != "")
+    {
+      text("You came " + place + "!", width/2, height/2 + 20);
+    }
+    
     
     fill(255);
     rect(100, height-100, 50, 20);
