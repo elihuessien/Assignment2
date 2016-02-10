@@ -27,6 +27,8 @@ int size = 0;
 int scoreNum = 0;
 ArrayList<Score> scores = new ArrayList<Score>();
 
+ArrayList<GO> gameObjects = new ArrayList<GO>();
+
 void loadScores()
 {
   String[] lines = loadStrings("scores.txt");
@@ -51,6 +53,38 @@ void draw()
   textFont(font, 18);
   background(0);
   stroke(255);
+  
+  if(menu == 1)
+  {
+    animate();
+    for(int i = gameObjects.size() - 1; i >= 0; i --)
+    {
+      GO b = gameObjects.get(i);
+      b.update();
+      b.render();
+      
+      if(b instanceof AniSpark)
+      {
+        if(b.j == 1)
+        {
+          gameObjects.remove(b);
+        }
+      }
+      
+      if(b.pos.x > width || b.pos.x < 0)
+      {
+        gameObjects.remove(b);
+      }
+      if(b.pos.y > height || b.pos.y < 0)
+      {
+        
+      }
+    }
+  }
+  else
+  {
+    killanimation();
+  }
   
   if(init)
   {
@@ -257,6 +291,65 @@ void mousePressed()
     }
   }
 }
+
+
+void animate()
+{
+  int make = int(random(1, 50.1));
+  
+  if(make == 1)
+  {
+    int type = int(random(-0.2, 1.1));
+    if(type == 0)
+    {
+      AniBall bl = new AniBall();
+      gameObjects.add(bl);
+    }
+    else
+    {
+      AniPlatform pl = new AniPlatform();
+      gameObjects.add(pl);
+    }
+  }
+  
+  for(int i = gameObjects.size() - 1 ; i >= 0   ;i --)
+ {
+    GO b = gameObjects.get(i);
+    if (b instanceof AniBall)
+    {
+      for(int j = gameObjects.size() - 1 ; j >= 0   ;j --)
+      {
+         GO p = gameObjects.get(j);
+         if (p instanceof AniPlatform) // Check the type of a object
+         {
+           // Bounding circle collisions
+           if(b.pos.x > p.pos.x && b.pos.x < (p.pos.x + p.w))
+           {
+             if(b.pos.y > p.pos.y && b.pos.y < p.pos.y + p.h)
+             {
+               // Do some casting
+               AniSpark poof = new AniSpark(b.pos.x, b.pos.y);
+               gameObjects.remove(b);
+               gameObjects.remove(p);
+             }
+           }
+         }
+       }
+    } 
+  }
+}
+
+
+void killanimation()
+{
+  int sz = gameObjects.size();
+  
+  for(int i=0; i < sz; i++)
+  {
+    gameObjects.remove(0);
+  }
+}
+
 
 void menuOptions()
 {
